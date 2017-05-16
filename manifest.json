@@ -1,0 +1,21 @@
+{
+  "manifest_version": 1,
+
+  "name": "READ ME LATER!",
+  "description": "This extension can store bookmarks when you need to open them all",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "bookmarks",
+    "contextMenus",
+    "storage"
+  ],
+  "icons": {
+
+  }
+}
