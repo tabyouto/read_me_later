@@ -3,6 +3,9 @@ body {
   min-width: 800px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+button {
+  cursor: pointer;
+}
 button:focus {
   outline: none;
 }
@@ -87,4 +90,35 @@ button.add {
   right: 0;
   top: 47%;
   transform: translate3d(0, -50%, 0);
+}
+.popup-container .list-wrap {
+  padding: 10px 30px;
+  overflow-y: scroll;
+}
+.popup-container .list-wrap ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.popup-container .list-wrap li {
+  padding: 5px;
+  position: relative;
+  overflow: hidden;
+}
+.popup-container .list-wrap li:hover {
+  background-color: rgba(0, 0, 0, 0.14);
+}
+.popup-container .list-wrap li a {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.75);
+}
+.popup-container .list-wrap li a img {
+  margin-right: 8px;
+}
+.popup-container .list-wrap li button {
+  position: absolute;
+  right: 0;
+  top: 5px;
 }

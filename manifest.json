@@ -1,21 +1,28 @@
 {
-  "manifest_version": 1,
-
+  "manifest_version": 2,
   "name": "READ ME LATER!",
+  "short_name": "READ LATER",
   "description": "This extension can store bookmarks when you need to open them all",
   "version": "1.0",
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://apis.google.com https://ssl.google-analytics.com; object-src 'self'",
+  "background": {
+    "scripts": [ "/scripts/jquery.min.js", "/scripts/background.js" ]
+  },
 
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
-    "activeTab",
-    "bookmarks",
+    "tabs",
     "contextMenus",
-    "storage"
+    "storage",
+    "notifications",
+    "http://*/",
+    "https://*/"
   ],
   "icons": {
-
+    "128": "icon.png"
   }
 }

@@ -6,6 +6,7 @@ body {
 }
 
 button {
+  cursor: pointer;
   &:focus {
     outline: none;
   }
@@ -80,8 +81,8 @@ button.add {
       &:hover {
         box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.52);
         background-color: rgba(139, 195, 74, 0.86);
-        width:51px;
-        height:51px;
+        width: 51px;
+        height: 51px;
       }
       i {
         font-size: 24px;
@@ -93,6 +94,37 @@ button.add {
         right: 0;
         top: 47%;
         transform: translate3d(0, -50%, 0);
+      }
+    }
+  }
+  .list-wrap {
+    padding: 10px 30px;
+    overflow-y: scroll;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      padding: 5px;
+      position: relative;
+      overflow: hidden;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.14);
+      }
+      a {
+        display: block;
+        font-size: 14px;
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.75);
+        img {
+          margin-right: 8px;
+        }
+      }
+      button {
+        position: absolute;
+        right: 0;
+        top: 5px;
       }
     }
   }

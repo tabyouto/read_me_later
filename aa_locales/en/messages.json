@@ -1,0 +1,41 @@
+{
+  "add_current_page": {
+    "message": "add current page"
+  },
+  "appDesc": {
+    "message": "This extension saves pages to view for later."
+  },
+  "appName": {
+    "message": "VIEW LATER - save links in a stack"
+  },
+  "delete": {
+    "message": "DELETE"
+  },
+  "filter": {
+    "message": "FILTER"
+  },
+  "link": {
+    "message": "LINKS"
+  },
+  "options": {
+    "message": "OPTIONS"
+  },
+  "options_always_open_link_in_current_tab": {
+    "message": "always open links in current tab"
+  },
+  "options_close_tab": {
+    "message": "close tab automatically, when page is added to the stack"
+  },
+  "options_contact": {
+    "message": "CONTACT"
+  },
+  "options_display_notifications": {
+    "message": "show notifications when adding a page"
+  },
+  "options_remove_link": {
+    "message": "remove link automatically from the stack, when it is clicked"
+  },
+  "options_title": {
+    "message": "VIEW LATER OPTIONS"
+  }
+}
