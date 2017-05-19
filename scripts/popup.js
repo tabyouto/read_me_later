@@ -16,7 +16,7 @@
 						var url = bookmarks[title];
 						$('.list-wrap ul').prepend('<li>' +
 							'<a data-tooltip="' + url + '" href="' + url + '"><img src="' + that.getFavIcon(url) + '">' + displayedTitle + '</a>' +
-							'<button class="icon iconfont icon-delete"></button></li>');
+							'<button class="icon iconfont icon-delete" data-key="' + title + '"></button></li>');
 					}
 				});
 
@@ -72,6 +72,7 @@
 		},
 		decreaseCountBage: function() {
 			chrome.browserAction.getBadgeText({}, function(result) {
+				alert(result);
 				result--;
 				if (result > 0) {
 					chrome.browserAction.setBadgeText({text: '' + result});
@@ -95,27 +96,26 @@
 						saveBookmarkTitle: tab[0].title,
 						saveBookmarkUrl: tab[0].url
 					}, function (title) {
-						alert(title)
 						if (title === null) {
 							return;
 						}
 
 						var displayedTitle = title.slice(13);
+						alert(that.getFavIcon(tab[0].url));
 						$('.list-wrap ul').prepend('<li>' +
-							'<a data-tooltip="' + url + '" href="' + tab[0].url + '"><img src="' + that.getFavIcon(tab[0].url) + '">' + displayedTitle + '</a>' +
-							'<button class="icon iconfont icon-delete" data-key="' + title + '></button></li>');
+							'<a data-tooltip="' + tab[0].url + '" href="' + tab[0].url + '"><img src="' + that.getFavIcon(tab[0].url) + '">' + displayedTitle + '</a>' +
+							'<button class="icon iconfont icon-delete" data-key="' + title + '"></button></li>');
 					});
 				})
-			})
+			});
 
 			$delBtn.on('click', function () {
-				alert('delete')
 				console.log('deleting');
-				var key = $(this).attr('data-key');
+				var key = $(this).data('key');
 				chrome.storage.local.remove(key);
 				chrome.storage.sync.remove(key);
 				$(this).parent().fadeOut(150, function () {
-					$(this).parent().remove();
+					$(this).remove();
 					that.decreaseCountBage();
 				});
 			})
