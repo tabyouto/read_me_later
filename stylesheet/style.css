@@ -1,7 +1,30 @@
 body {
   min-height: 500px;
-  min-width: 800px;
+  min-width: 580px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@font-face {
+  font-family: "iconfont";
+  src: url('../fonts/iconfont.eot?t=1495034336829');
+  /* IE9*/
+  src: url('../fonts/iconfont.eot?t=1495034336829#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/iconfont.woff?t=1495034336829') format('woff'), /* chrome, firefox */ url('../fonts/iconfont.ttf?t=1495034336829') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/ url('../fonts/iconfont.svg?t=1495034336829#iconfont') format('svg');
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-chidouren-copy:before {
+  content: "\e600";
+}
+.icon-delete:before {
+  content: "\e60a";
+}
+.icon-bookmark:before {
+  content: "\e60b";
 }
 button {
   cursor: pointer;
@@ -92,7 +115,9 @@ button.add {
   transform: translate3d(0, -50%, 0);
 }
 .popup-container .list-wrap {
-  padding: 10px 30px;
+  padding: 10px 30px 10px 20px;
+  height: 325px;
+  margin-top: 8px;
   overflow-y: scroll;
 }
 .popup-container .list-wrap ul {
@@ -103,10 +128,11 @@ button.add {
 .popup-container .list-wrap li {
   padding: 5px;
   position: relative;
+  line-height: 24px;
   overflow: hidden;
 }
 .popup-container .list-wrap li:hover {
-  background-color: rgba(0, 0, 0, 0.14);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .popup-container .list-wrap li a {
   display: block;
@@ -116,9 +142,37 @@ button.add {
 }
 .popup-container .list-wrap li a img {
   margin-right: 8px;
+  margin-top: 3px;
+  float: left;
 }
 .popup-container .list-wrap li button {
+  font-size: 22px;
+  color: #6f6f6f;
   position: absolute;
   right: 0;
   top: 5px;
+  background: transparent;
+  border: none;
+}
+:-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+  background: -webkit-gradient(linear, left top, right top, from(#f6f6f6), color-stop(50%, #fff), color-stop(75%, #fff), to(#fdfdfd));
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+  background: -webkit-gradient(linear, left top, right top, from(#f6f6f6), color-stop(50%, #fff), color-stop(75%, #fff), to(#fdfdfd));
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-thumb {
+  border-width: 0;
+  border-style: solid;
+  border-radius: 6px;
+  background: #7d7d7d;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 14px;
 }

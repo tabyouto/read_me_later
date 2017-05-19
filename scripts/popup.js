@@ -1,10 +1,9 @@
 (function () {
 	var later = {
 		init: function () {
-			this.loadBookMarke();
-			this.bindUI();
+			this.loadBookMarke(this.bindUI);
 		},
-		loadBookMarke: function () {
+		loadBookMarke: function (callback) {
 			var that = this;
 			chrome.storage.local.get(function (bookmarks) {
 
@@ -15,9 +14,9 @@
 						counter++;
 						var displayedTitle = title.slice(13);
 						var url = bookmarks[title];
-						$('.list-wrap ul').append('<li>' +
-							'<a data-tooltip="' + url + '" href="' + url + '"><img style="vertical-align: middle" src="' + that.getFavIcon(url) + '">' + displayedTitle + '</a>' +
-							'<button>删除</button></li>');
+						$('.list-wrap ul').prepend('<li>' +
+							'<a data-tooltip="' + url + '" href="' + url + '"><img src="' + that.getFavIcon(url) + '">' + displayedTitle + '</a>' +
+							'<button class="icon iconfont icon-delete"></button></li>');
 					}
 				});
 
@@ -26,25 +25,29 @@
 				} else {
 					chrome.browserAction.setBadgeText({text: ''});
 				}
+
+				callback && callback();
 			})
 		},
-		getDomain: function(url) {
+		getDomain: function (url) {
 			var matches, domain;
 			try {
 				matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
 				domain = matches && matches[1];  // domain will be null if no match is found
-			} catch (e) { return null; }
+			} catch (e) {
+				return null;
+			}
 			return domain;
 		},
-		convertImgToBase64: function(url, callback){
+		convertImgToBase64: function (url, callback) {
 			var img = new Image();
 			img.crossOrigin = 'Anonymous';
-			img.onload = function(){
+			img.onload = function () {
 				var canvas = document.createElement('CANVAS');
 				var ctx = canvas.getContext('2d');
 				canvas.height = 20;
 				canvas.width = 20;
-				ctx.drawImage(this,0,0);
+				ctx.drawImage(this, 0, 0);
 				var dataURL = canvas.toDataURL('image/png');
 				callback(dataURL);
 				canvas = null;
@@ -67,8 +70,20 @@
 			}
 			return 'http://www.google.com/s2/favicons?domain_url=' + url;
 		},
-		bindUI: function() {
+		decreaseCountBage: function() {
+			chrome.browserAction.getBadgeText({}, function(result) {
+				result--;
+				if (result > 0) {
+					chrome.browserAction.setBadgeText({text: '' + result});
+				} else {
+					chrome.browserAction.setBadgeText({text: ''});
+				}
+			});
+		},
+		bindUI: function () {
+			var that = this;
 			var $addBtn = $('.add-url');
+			var $delBtn = $('.icon-delete');
 			$addBtn.on('click', function () {
 				/**
 				 * get current active tab info
@@ -80,27 +95,29 @@
 						saveBookmarkTitle: tab[0].title,
 						saveBookmarkUrl: tab[0].url
 					}, function (title) {
-						if (title === null) {return;}
-
+						alert(title)
+						if (title === null) {
+							return;
+						}
 
 						var displayedTitle = title.slice(13);
-
-						$('.list-wrap ul').append('<li>' +
-							'<a data-tooltip="' + url + '" href="' +  tab[0].url + '"><img style="vertical-align: middle" src="' + that.getFavIcon( tab[0].url) + '">' + displayedTitle + '</a>' +
-							'<button>删除</button></li>');
-
-
-
-						setupDeleteBookmarkHandler();
-						setupViewBookmarkHandler();
-						$('.tooltipped').tooltip();
-
-						// close current tab if option selected
-						chrome.storage.local.get('closeTab', function(obj) {if (obj.closeTab != false) { chrome.tabs.remove(tab.id);}});
-
-
+						$('.list-wrap ul').prepend('<li>' +
+							'<a data-tooltip="' + url + '" href="' + tab[0].url + '"><img src="' + that.getFavIcon(tab[0].url) + '">' + displayedTitle + '</a>' +
+							'<button class="icon iconfont icon-delete" data-key="' + title + '></button></li>');
 					});
 				})
+			})
+
+			$delBtn.on('click', function () {
+				alert('delete')
+				console.log('deleting');
+				var key = $(this).attr('data-key');
+				chrome.storage.local.remove(key);
+				chrome.storage.sync.remove(key);
+				$(this).parent().fadeOut(150, function () {
+					$(this).parent().remove();
+					that.decreaseCountBage();
+				});
 			})
 		}
 	};

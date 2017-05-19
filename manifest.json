@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "READ ME LATER!",
-  "short_name": "READ LATER",
+  "name": "SEE YOU LATER!",
+  "short_name": "SEE YOU LATER",
   "description": "This extension can store bookmarks when you need to open them all",
   "version": "1.0",
   "update_url": "https://clients2.google.com/service/update2/crx",
