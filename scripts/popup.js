@@ -6,7 +6,6 @@
 		loadBookMarke: function (callback) {
 			var that = this;
 			chrome.storage.local.get(function (bookmarks) {
-
 				var counter = 0;
 				$.each(Object.keys(bookmarks), function (index, title) {
 					if (/^\d/.test(title)) {
@@ -15,7 +14,7 @@
 						var displayedTitle = title.slice(13);
 						var url = bookmarks[title];
 						$('.list-wrap ul').prepend('<li>' +
-							'<a data-tooltip="' + url + '" href="' + url + '"><img src="' + that.getFavIcon(url) + '">' + displayedTitle + '</a>' +
+							'<a data-tooltip="' + url + '" href="' + url + '"><img src="' + later.getFavIcon(url) + '">' + displayedTitle + '</a>' +
 							'<button class="icon iconfont icon-delete" data-key="' + title + '"></button></li>');
 					}
 				});
@@ -72,7 +71,6 @@
 		},
 		decreaseCountBage: function() {
 			chrome.browserAction.getBadgeText({}, function(result) {
-				alert(result);
 				result--;
 				if (result > 0) {
 					chrome.browserAction.setBadgeText({text: '' + result});
@@ -96,14 +94,14 @@
 						saveBookmarkTitle: tab[0].title,
 						saveBookmarkUrl: tab[0].url
 					}, function (title) {
+						console.log('callback title-------->',title)
 						if (title === null) {
 							return;
 						}
 
 						var displayedTitle = title.slice(13);
-						alert(that.getFavIcon(tab[0].url));
 						$('.list-wrap ul').prepend('<li>' +
-							'<a data-tooltip="' + tab[0].url + '" href="' + tab[0].url + '"><img src="' + that.getFavIcon(tab[0].url) + '">' + displayedTitle + '</a>' +
+							'<a data-tooltip="' + tab[0].url + '" href="' + tab[0].url + '"><img src="' + later.getFavIcon(tab[0].url) + '">' + displayedTitle + '</a>' +
 							'<button class="icon iconfont icon-delete" data-key="' + title + '"></button></li>');
 					});
 				})
@@ -116,7 +114,7 @@
 				chrome.storage.sync.remove(key);
 				$(this).parent().fadeOut(150, function () {
 					$(this).remove();
-					that.decreaseCountBage();
+					later.decreaseCountBage();
 				});
 			})
 		}
