@@ -95,7 +95,7 @@
 						saveBookmarkUrl: tab[0].url
 					}, function (title) {
 						console.log('callback title-------->',title)
-						if (title === null) {
+						if (title == null) {
 							return;
 						}
 

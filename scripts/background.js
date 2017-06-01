@@ -1,10 +1,9 @@
 chrome.browserAction.setBadgeBackgroundColor({color: '#1B8AFA'});
 
-chrome.extension.onMessage.addListener(function (request, sender, cb) {
+chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.saveBookmarkUrl != null && request.saveBookmarkUrl != "") {
 		var title = saveBookmark(request.saveBookmarkTitle, request.saveBookmarkUrl, request.timestamp);
-		console.log('result->>>>>>>>',title)
-		cb(title);
+		sendResponse(title);
 	}
 });
 
@@ -58,16 +57,15 @@ function saveBookmark(title, url, timestamp) {
 		for (var i = 0; i < keys.length; i++) {
 			var savedUrl = savedBookmarks[keys[i]];
 			if (url === savedUrl) {
-				console.log("url already saved. doing nothing...");
+				//console.log("url already saved. doing nothing...");
 				chrome.storage.local.get('displayNotifications', function (obj) {
 					if (obj.displayNotifications != false) {
 						alreadySavedNotification();
 					}
 				});
-				return null;
+				title = null;
 			}
 		}
-
 		var bookmark = {};
 		bookmark[title] = url;
 		chrome.storage.local.set(bookmark, function () {
@@ -76,12 +74,12 @@ function saveBookmark(title, url, timestamp) {
 					showBookmarkNotification();
 				}
 			});
-			console.log('Page ' + title + ' (' + url + ') saved to VIEW LATER');
+			//console.log('Page ' + title + ' (' + url + ') saved to VIEW LATER');
 			showCountBadge();
 		});
 		chrome.storage.sync.set(bookmark); //同步
-		console.log("saved the following bookmark");
-		console.log('callback title------->',title)
+		//console.log("saved the following bookmark");
+		//console.log('callback title------->',title)
 	});
 	return title;
 }
